@@ -1,14 +1,17 @@
 package per.lyg.dao;
 
 import org.junit.Test;
+import per.lyg.dao.impl.CourseContentDaoImpl;
 import per.lyg.dao.impl.CourseDaoImpl;
 import per.lyg.pojo.Course;
+import per.lyg.pojo.Course_Section;
 import per.lyg.utils.DateUtils;
 
 import java.util.List;
 
 public class TestCourseDao {
     CourseDao courseDao = new CourseDaoImpl();
+
     @Test
     public void testFindCourseDao(){
         List<Course> courseList = courseDao.findCourseList();
@@ -60,4 +63,6 @@ public class TestCourseDao {
 //        course.setTeacher_name("李老师");
 //        courseDao.updateCourseStatus(course);
     }
+
+
 }

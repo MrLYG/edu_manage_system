@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *  课程章节
@@ -49,20 +51,10 @@ public class Course_Section  implements Serializable {
   @JSONField(ordinal = 9)
   private int isDel;
 
-  @Override
-  public String toString() {
-    return "Course_Section{" +
-            "id=" + id +
-            ", course_id=" + course_id +
-            ", section_name='" + section_name + '\'' +
-            ", description='" + description + '\'' +
-            ", order_num=" + order_num +
-            ", status=" + status +
-            ", create_time='" + create_time + '\'' +
-            ", update_time='" + update_time + '\'' +
-            ", isDel=" + isDel +
-            '}';
-  }
+
+  private Course course;
+
+  private List<Course_Lesson> lessonList = new ArrayList<>();
 
   @JSONField(serialize = false)
   private int last_operator_id; //最后操作者ID
