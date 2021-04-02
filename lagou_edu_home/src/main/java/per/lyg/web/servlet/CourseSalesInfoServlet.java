@@ -1,10 +1,15 @@
 package per.lyg.web.servlet;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
+import per.lyg.base.Constants;
+import per.lyg.pojo.Course;
+import per.lyg.service.CourseService;
+import per.lyg.service.impl.CourseServiceImpl;
+import per.lyg.utils.DateUtils;
 import per.lyg.utils.UUIDUtils;
 
 import javax.servlet.ServletException;
@@ -15,12 +20,20 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-@WebServlet("/upload")
-public class FileUploadServlet extends HttpServlet {
+/**
+ * @author 李沅罡
+ */
+@WebServlet("/courseSalesInfo")
+public class CourseSalesInfoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+        Course course = new Course();
+
+        Map<String,Object> map = new HashMap<>();
         try {
             //1.创建磁盘文件工厂对象
             DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -41,10 +54,13 @@ public class FileUploadServlet extends HttpServlet {
                         //5.判断是普通的表单项还是文件上传项
                         boolean formField = item.isFormField();
                         if(formField){
-                            //普通表单项
+                            //普通表单项, 获取表单项中的数据，保存到map
                             String fieldName = item.getFieldName();
-                            String fileValue = item.getString("utf-8");
-                            System.out.println(fieldName + "="+fileValue);
+                            String value = item.getString("utf-8");
+                            //使用map收集数据
+
+                            System.out.println(fieldName + "="+value);
+                            map.put(fieldName,value);
                         }else {
                             //文件上传项
                             //获取文件名
@@ -59,28 +75,44 @@ public class FileUploadServlet extends HttpServlet {
                             //获取当前项目部署的路径
                             String realPath = req.getServletContext().getRealPath("/");
                             String webappsPath = realPath.substring(0, realPath.indexOf("lagou_edu_home"));
-                            String uploadPath = webappsPath+"upload/";
-                            FileOutputStream out = new FileOutputStream(uploadPath+newFileName);
+                            String uploadPath = webappsPath+"upload/"+newFileName;
+                            FileOutputStream out = new FileOutputStream(uploadPath);
 
                             IOUtils.copy(in,out);
 
                             //关闭流
                             in.close();
                             out.close();
+                            map.put("course_img_url", Constants.LOCAL_HOST+"/upload/"+newFileName);
                         }
                     }
                 }
+                BeanUtils.populate(course,map);
+                String dateFormart = DateUtils.getDateFormart();
+                CourseService courseService = new CourseServiceImpl();
+                if(map.get("id")!=null){
+                    //修改操作
+                    course.setUpdate_time(dateFormart);
+                    String res = courseService.updateCourseSalesInfo(course);
+                    resp.getWriter().print(res);
+
+                }else {
+                    //新建操作
+                    course.setCreate_time(dateFormart);
+                    course.setUpdate_time(dateFormart);
+                    course.setStatus(1);
+
+                    String res = courseService.saveCourseSalesInfo(course);
+                    resp.getWriter().print(res);
+
+                }
+
+
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
-
-
-
-
 
     }
 

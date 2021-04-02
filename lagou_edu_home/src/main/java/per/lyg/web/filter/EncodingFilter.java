@@ -6,10 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-/**
- * Filter 解决乱码
- * @author 李沅罡
- */
+//Filter 解决乱码
 @WebFilter("/*")
 public class EncodingFilter implements Filter {
     @Override
@@ -31,7 +28,14 @@ public class EncodingFilter implements Filter {
         response.setContentType("text/html;charset=UTF-8");
 
         //放行
-        filterChain.doFilter(request,response);
+
+        try {
+            filterChain.doFilter(request,response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ServletException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

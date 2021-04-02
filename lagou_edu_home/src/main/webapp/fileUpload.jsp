@@ -12,14 +12,21 @@
 </head>
 <body>
 
-        <form method="post" action="" enctype="multipart/form-data">
-            <input type="file" name="upload">
-            <br>
-            <input type="text" name="name">
-            <input type="text" name = "password">
-            <input type="submit" value="文件上传">
+    <form method="post" enctype="multipart/form-data" action="<%=pageContext.getServletContext().getContextPath()%>/upload">
+        <input type="file" name="upload">
+        <br>
+        <input type="text" name="name">
+        <input type="text" name = "password">
+        <input type="submit" value="文件上传">
+    </form>
+<%--        <form method="post" action="/lagou_edu_home/upload" enctype="multipart/form-data">--%>
+<%--            <input type="file" name="upload">--%>
+<%--            <br>--%>
+<%--            <input type="text" name="name">--%>
+<%--            <input type="text" name = "password">--%>
+<%--            <input type="submit" value="文件上传">--%>
 
 
-        </form>
+<%--        </form>--%>
 </body>
 </html>

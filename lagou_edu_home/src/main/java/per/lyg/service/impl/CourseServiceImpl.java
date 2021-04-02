@@ -7,7 +7,9 @@ import per.lyg.pojo.Course;
 import per.lyg.service.CourseService;
 import per.lyg.utils.DateUtils;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author 李沅罡
@@ -42,5 +44,37 @@ public class CourseServiceImpl implements CourseService {
             return StatusCode.FAIL.toString();
         }
 
+    }
+
+    @Override
+    public Course findCourseById(int id) {
+
+        return courseDao.findCourseById(id);
+    }
+
+    @Override
+    public String updateCourseSalesInfo(Course c) {
+        int i = courseDao.updateCourseSalesInfo(c);
+        if(i>0){
+            return StatusCode.SUCCESS.toString();
+        }else {
+            return StatusCode.FAIL.toString();
+        }
+
+    }
+
+    @Override
+    public Map<String, Integer> updateCourseStatus(Course course) {
+        int i = courseDao.updateCourseStatus(course);
+        Map<String,Integer> map = new HashMap<>();
+        
+        if(i>0){
+            if(course.getStatus()==0){
+                map.put("status",0);
+            }else {
+                map.put("status",1);
+            }
+        }
+        return map;
     }
 }
