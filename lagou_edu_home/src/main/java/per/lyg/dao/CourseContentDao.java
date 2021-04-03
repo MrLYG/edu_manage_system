@@ -52,4 +52,20 @@ public interface CourseContentDao {
      * @return
      */
     public int updateSectionStatus(int id, int status);
+
+
+    /**
+     * 保存课时信息
+     * @param course_lesson
+     * @return
+     */
+    public int saveLesson(Course_Lesson course_lesson);
+
+
+    /**
+     * 更新课时信息
+     * @param course_lesson
+     * @return
+     */
+    public int updateLesson(Course_Lesson course_lesson);
 }

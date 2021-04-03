@@ -4,6 +4,7 @@ import per.lyg.base.StatusCode;
 import per.lyg.dao.CourseContentDao;
 import per.lyg.dao.impl.CourseContentDaoImpl;
 import per.lyg.pojo.Course;
+import per.lyg.pojo.Course_Lesson;
 import per.lyg.pojo.Course_Section;
 import per.lyg.service.CourseContentService;
 import per.lyg.utils.DateUtils;
@@ -48,6 +49,39 @@ public class CourseContentServiceImpl implements CourseContentService {
         section.setUpdate_time(DateUtils.getDateFormart());
 
         int row = contentDao.updateSection(section);
+        if (row > 0) {
+            return StatusCode.SUCCESS.toString();
+        }else {
+            return StatusCode.FAIL.toString();
+        }
+    }
+
+    @Override
+    public String updateSectionStatus(int id, int status) {
+        int row = contentDao.updateSectionStatus(id, status);
+        if (row > 0) {
+            return StatusCode.SUCCESS.toString();
+        }else {
+            return StatusCode.FAIL.toString();
+        }
+    }
+
+    @Override
+    public String saveLesson(Course_Lesson course_lesson) {
+        course_lesson.setCreate_time(DateUtils.getDateFormart());
+        course_lesson.setUpdate_time(DateUtils.getDateFormart());
+        int row = contentDao.saveLesson(course_lesson);
+        if (row > 0) {
+            return StatusCode.SUCCESS.toString();
+        }else {
+            return StatusCode.FAIL.toString();
+        }
+    }
+
+    @Override
+    public String updateLesson(Course_Lesson course_lesson) {
+        course_lesson.setUpdate_time(DateUtils.getDateFormart());
+        int row = contentDao.updateLesson(course_lesson);
         if (row > 0) {
             return StatusCode.SUCCESS.toString();
         }else {

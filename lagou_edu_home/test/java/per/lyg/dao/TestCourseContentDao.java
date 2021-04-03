@@ -3,6 +3,7 @@ package per.lyg.dao;
 import org.junit.Test;
 import per.lyg.dao.impl.CourseContentDaoImpl;
 import per.lyg.pojo.Course;
+import per.lyg.pojo.Course_Lesson;
 import per.lyg.pojo.Course_Section;
 import per.lyg.utils.DateUtils;
 
@@ -63,6 +64,32 @@ public class TestCourseContentDao {
     public void testUpdateSectionStatus(){
 
         int i = courseContentDao.updateSectionStatus(1, 0);
+        System.out.println(i);
+    }
+
+    @Test
+    public void testSaveLesson(){
+        Course_Lesson course_lesson = new Course_Lesson();
+        course_lesson.setCourse_id(1);
+        course_lesson.setDuration(2);
+        course_lesson.setTheme("asdas");
+        course_lesson.setCreate_time(DateUtils.getDateFormart());
+        course_lesson.setUpdate_time(DateUtils.getDateFormart());
+        int i = courseContentDao.saveLesson(course_lesson);
+        System.out.println(i);
+    }
+
+
+    @Test
+    public void testUpdateLesson(){
+        Course_Lesson course_lesson = new Course_Lesson();
+        course_lesson.setId(1);
+        course_lesson.setCourse_id(1);
+        course_lesson.setDuration(2);
+        course_lesson.setTheme("asdasasdasdfadsfadsfas");
+        course_lesson.setCreate_time(DateUtils.getDateFormart());
+        course_lesson.setUpdate_time(DateUtils.getDateFormart());
+        int i = courseContentDao.updateLesson(course_lesson);
         System.out.println(i);
     }
 }
