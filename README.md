@@ -1,5 +1,8 @@
 # edu_manage_system
 教育管理系统
+### 项目访问网址
+http://liyuangang.cn/edu-boss/
+
 代码库中edu-boss 为前端代码
 lagou_edu_home 为后端代码
 
