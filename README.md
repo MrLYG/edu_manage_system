@@ -11,9 +11,9 @@ lagou_edu_home 为后端代码
 - 开发工具
   - 后端: IDEA 2019
   - 前端: VS code
-  - 数据库: SQLYog
+  - 数据库: navcat
 - 开发环境
-  - JDK 11
+  - JDK 1.8
   - Maven 3.6.3
   - MySQL 5.7
 
