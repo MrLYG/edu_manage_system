@@ -35,4 +35,6 @@ public interface CourseContentService {
      * @return
      */
     public String updateLesson(Course_Lesson course_lesson);
+
+    Course_Section getSectionNameById(int parseInt);
 }

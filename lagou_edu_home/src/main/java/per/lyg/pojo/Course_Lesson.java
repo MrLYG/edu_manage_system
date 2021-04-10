@@ -39,7 +39,7 @@ public class Course_Lesson  implements Serializable {
 
   //课时排序
   @JSONField(ordinal = 7)
-  private int orderNum;
+  private int order_num;
 
   //课时状态,0-隐藏，1-未发布，2-已发布
   @JSONField(ordinal = 8)
@@ -67,7 +67,7 @@ public class Course_Lesson  implements Serializable {
             ", theme='" + theme + '\'' +
             ", duration=" + duration +
             ", is_free=" + is_free +
-            ", orderNum=" + orderNum +
+            ", orderNum=" + order_num +
             ", status=" + status +
             ", create_time='" + create_time + '\'' +
             ", update_time='" + update_time + '\'' +

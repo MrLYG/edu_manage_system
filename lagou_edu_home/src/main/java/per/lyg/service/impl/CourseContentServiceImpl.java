@@ -88,4 +88,10 @@ public class CourseContentServiceImpl implements CourseContentService {
             return StatusCode.FAIL.toString();
         }
     }
+
+    @Override
+    public Course_Section getSectionNameById(int sectionId) {
+
+        return contentDao.getSectionNameById(sectionId);
+    }
 }

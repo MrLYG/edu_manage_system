@@ -73,7 +73,9 @@ public class CourseContentServlet extends BaseServlet {
 
             Course_Section course_section = new Course_Section();
 
-            BeanUtils.populate(course_section,mapReq);
+//            BeanUtils.populate(course_section,mapReq);
+            BeanUtils.copyProperties(course_section, mapReq.get("section"));
+
             String res = null;
             if (course_section.getId() == 0) {
                 //新增操作
@@ -111,6 +113,7 @@ public class CourseContentServlet extends BaseServlet {
 
             Course_Lesson course_lesson = new Course_Lesson();
             BeanUtils.populate(course_lesson,mapReq);
+            BeanUtils.copyProperties(course_lesson, mapReq.get("lesson"));
             String res = null;
             if (course_lesson.getId() == 0) {
                 //新增操作
@@ -125,5 +128,21 @@ public class CourseContentServlet extends BaseServlet {
         }
     }
 
+    public void getSectionNameById(HttpServletRequest request, HttpServletResponse response){
+
+        try {
+            String section_id = request.getParameter("section_id");
+
+            Course_Section section = contentService.getSectionNameById(Integer.parseInt(section_id));
+
+            SimplePropertyPreFilter filter = new SimplePropertyPreFilter(Course.class, "id", "section_name");
+            String res = JSON.toJSONString(section,filter);
+
+            response.getWriter().print(res);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

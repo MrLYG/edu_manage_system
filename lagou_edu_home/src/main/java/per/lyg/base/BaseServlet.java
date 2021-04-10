@@ -27,7 +27,7 @@ public class BaseServlet extends HttpServlet {
         //1.获取POST请求的 Content-Type类型
         String type = req.getHeader("Content-Type");
         //2.判断传递的数据是不是JSON格式
-        if ("application/json;charset=utf-8".equals(type)) {
+        if ("application/json;charset=utf-8".equalsIgnoreCase(type)) {
             //是JOSN格式 调用getPostJSON
             String postJSON = getPostJSON(req);
             System.out.println(postJSON);
@@ -49,6 +49,7 @@ public class BaseServlet extends HttpServlet {
             try {
                 Class c = this.getClass();
                 Method method = c.getMethod(methodName,HttpServletRequest.class,HttpServletResponse.class);
+                System.out.println("methodName="+method.getName());
                 method.invoke(this,req,resp);
             } catch (Exception e) {
                 e.printStackTrace();

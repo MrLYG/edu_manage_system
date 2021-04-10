@@ -68,4 +68,6 @@ public interface CourseContentDao {
      * @return
      */
     public int updateLesson(Course_Lesson course_lesson);
+
+    Course_Section getSectionNameById(int sectionId);
 }

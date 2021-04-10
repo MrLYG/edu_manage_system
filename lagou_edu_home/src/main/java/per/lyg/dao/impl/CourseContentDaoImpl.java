@@ -165,7 +165,7 @@ public class CourseContentDaoImpl implements CourseContentDao {
 
             String sql = "INSERT INTO course_lesson(course_id,section_id,theme,duration,is_free,order_num,create_time,update_time) VALUES(?,?,?,?,?,?,?,?)";
             Object[] param = {lesson.getCourse_id(),lesson.getSection_id(),lesson.getTheme(),lesson.getDuration(),
-                    lesson.getIs_free(),lesson.getOrderNum(),lesson.getCreate_time(),lesson.getUpdate_time()};
+                    lesson.getIs_free(),lesson.getOrder_num(),lesson.getCreate_time(),lesson.getUpdate_time()};
             int row = qr.update(sql, param);
             return row;
         } catch (SQLException e) {
@@ -180,14 +180,30 @@ public class CourseContentDaoImpl implements CourseContentDao {
         try {
             QueryRunner qr = new QueryRunner(DruidUtils.getDataSource());
 
-            String sql = "UPDATE course_lesson  SET course_id =?,section_id=?,theme=?,duration=?,is_free=?,order_num=?,create_time=?,update_time=? where id=?";
-            Object[] param = {lesson.getCourse_id(),lesson.getSection_id(),lesson.getTheme(),lesson.getDuration(),
-                    lesson.getIs_free(),lesson.getOrderNum(),lesson.getCreate_time(),lesson.getUpdate_time(),lesson.getId()};
+            String sql = "UPDATE course_lesson  SET theme=?,duration=?,is_free=?,order_num=?,update_time=? where id=?";
+            Object[] param = {lesson.getTheme(),lesson.getDuration(),
+                    lesson.getIs_free(),lesson.getOrder_num(),lesson.getUpdate_time(),lesson.getId()};
             int row = qr.update(sql, param);
             return row;
         } catch (SQLException e) {
             e.printStackTrace();
             return 0;
+        }
+    }
+
+    @Override
+    public Course_Section getSectionNameById(int sectionId) {
+        try {
+            QueryRunner qr = new QueryRunner(DruidUtils.getDataSource());
+
+            String sql = "SELECT id,section_name FROM course_section WHERE id = ?";
+
+            Course_Section section = qr.query(sql, new BeanHandler<Course_Section>(Course_Section.class), sectionId);
+
+            return section;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 }
